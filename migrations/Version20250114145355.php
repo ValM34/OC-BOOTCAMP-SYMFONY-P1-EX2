@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250113225520 extends AbstractMigration
+final class Version20250114145355 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,17 +20,13 @@ final class Version20250113225520 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SEQUENCE employe_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE projet_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE statut_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE tache_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE employe (id INT NOT NULL, nom VARCHAR(255) DEFAULT NULL, prenom VARCHAR(255) DEFAULT NULL, email VARCHAR(255) NOT NULL, statut VARCHAR(255) DEFAULT NULL, date_arrivee DATE DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE projet (id INT NOT NULL, nom VARCHAR(255) NOT NULL, archive BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE employe (id SERIAL NOT NULL, nom VARCHAR(255) DEFAULT NULL, prenom VARCHAR(255) DEFAULT NULL, email VARCHAR(255) NOT NULL, statut VARCHAR(255) DEFAULT NULL, date_arrivee DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE projet (id SERIAL NOT NULL, nom VARCHAR(255) NOT NULL, archive BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE projet_employe (projet_id INT NOT NULL, employe_id INT NOT NULL, PRIMARY KEY(projet_id, employe_id))');
         $this->addSql('CREATE INDEX IDX_7A2E8EC8C18272 ON projet_employe (projet_id)');
         $this->addSql('CREATE INDEX IDX_7A2E8EC81B65292 ON projet_employe (employe_id)');
-        $this->addSql('CREATE TABLE statut (id INT NOT NULL, libelle VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE tache (id INT NOT NULL, employe_id INT DEFAULT NULL, projet_id INT NOT NULL, statut_id INT NOT NULL, titre VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, deadline DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE statut (id SERIAL NOT NULL, libelle VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE tache (id SERIAL NOT NULL, employe_id INT DEFAULT NULL, projet_id INT NOT NULL, statut_id INT NOT NULL, titre VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, deadline DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_938720751B65292 ON tache (employe_id)');
         $this->addSql('CREATE INDEX IDX_93872075C18272 ON tache (projet_id)');
         $this->addSql('CREATE INDEX IDX_93872075F6203804 ON tache (statut_id)');
@@ -60,10 +56,6 @@ final class Version20250113225520 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('DROP SEQUENCE employe_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE projet_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE statut_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE tache_id_seq CASCADE');
         $this->addSql('ALTER TABLE projet_employe DROP CONSTRAINT FK_7A2E8EC8C18272');
         $this->addSql('ALTER TABLE projet_employe DROP CONSTRAINT FK_7A2E8EC81B65292');
         $this->addSql('ALTER TABLE tache DROP CONSTRAINT FK_938720751B65292');
