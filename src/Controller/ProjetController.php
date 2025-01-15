@@ -11,6 +11,7 @@ use App\Repository\StatutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Projet;
 use App\Form\ProjetType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProjetController extends AbstractController
 {
@@ -23,7 +24,7 @@ class ProjetController extends AbstractController
 
     }
 
-    #[Route('/', name: 'app_projets')]
+    #[Route('/projets', name: 'app_projets')]
     public function projets(): Response
     {
         $projets = $this->projetRepository->findBy([
@@ -35,7 +36,8 @@ class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/projets/ajouter', name: 'app_projet_add')]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/projets/ajouter', name: 'app_projet_add', methods: ['GET', 'POST'])]
     public function ajouterProjet(Request $request): Response
     {  
         $projet = new Projet();
@@ -87,10 +89,10 @@ class ProjetController extends AbstractController
         return $this->redirectToRoute('app_projets');
     }
 
-
-    #[Route('/projets/{id}/editer', name: 'app_projet_edit')]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/projets/{id}/editer', name: 'app_projet_edit', methods: ['GET', 'POST'])]
     public function editerProjet(int $id, Request $request): Response
-    {  
+    {
         $projet = $this->projetRepository->find($id);
 
         if(!$projet || $projet->isArchive()) {

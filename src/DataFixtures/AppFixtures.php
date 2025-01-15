@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->userPasswordHasher->hashPassword($employe1, "12345678aA"))
             ->setStatut('CDI')
             ->setDateArrivee(new DateTime('2019-06-14'))
-            ->setRoles(["ROLE_USER"])
+            ->setRoles(["ROLE_ADMIN"])
         ;
         $manager->persist($employe1);
 

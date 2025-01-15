@@ -621,3 +621,8 @@ p.home-subtitle {
 .not-register-question-container a {
     color: #fff;
 }
+
+.alert-not-auth .alert-not-authorized{
+    color: #fff;
+    background-color: red;
+}
