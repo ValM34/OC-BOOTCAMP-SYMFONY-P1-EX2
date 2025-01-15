@@ -10,9 +10,17 @@ use App\Entity\Tache;
 use App\Entity\Statut;
 use \DateTime;
 use \DateInterval;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Création des statuts
@@ -28,30 +36,38 @@ class AppFixtures extends Fixture
         $done->setLibelle('Done');
         $manager->persist($done);
 
-        
         // Création des employés
         $employe1 = new Employe();
         $employe1->setNom('Dillon')
             ->setPrenom('Natalie')
             ->setEmail('natalie@driblet.com')
+            ->setPassword($this->userPasswordHasher->hashPassword($employe1, "12345678aA"))
             ->setStatut('CDI')
-            ->setDateArrivee(new DateTime('2019-06-14'));
+            ->setDateArrivee(new DateTime('2019-06-14'))
+            ->setRoles(["ROLE_USER"])
+        ;
         $manager->persist($employe1);
 
         $employe2 = new Employe();
         $employe2->setNom('Baker')
             ->setPrenom('Demi')
             ->setEmail('demi@driblet.com')
+            ->setPassword($this->userPasswordHasher->hashPassword($employe2, "12345678aA"))
             ->setStatut('CDD')
-            ->setDateArrivee(new DateTime('2022-09-01'));
+            ->setDateArrivee(new DateTime('2022-09-01'))
+            ->setRoles(["ROLE_USER"])
+        ;
         $manager->persist($employe2);
 
         $employe3 = new Employe();
         $employe3->setNom('Dupont')
             ->setPrenom('Marie')
             ->setEmail('marie@driblet.com')
+            ->setPassword($this->userPasswordHasher->hashPassword($employe3, "12345678aA"))
             ->setStatut('Freelance')
-            ->setDateArrivee(new DateTime('2021-12-20'));
+            ->setDateArrivee(new DateTime('2021-12-20'))
+            ->setRoles(["ROLE_USER"])
+        ;
         $manager->persist($employe3);
 
         // Création des projets
