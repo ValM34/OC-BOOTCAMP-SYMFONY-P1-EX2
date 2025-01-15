@@ -26,7 +26,10 @@ class Projet
     #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Tache::class, orphanRemoval: true)]
     private Collection $taches;
 
-    #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'projets')]
+    /**
+     * @var Collection<int, Employe2>
+     */
+    #[ORM\ManyToMany(targetEntity: Employe::class, mappedBy: 'projets')]
     private Collection $employes;
 
     public function __construct()
@@ -106,6 +109,7 @@ class Projet
     {
         if (!$this->employes->contains($employe)) {
             $this->employes->add($employe);
+            $employe->addProjet($this);
         }
 
         return $this;
@@ -113,7 +117,9 @@ class Projet
 
     public function removeEmploye(Employe $employe): static
     {
-        $this->employes->removeElement($employe);
+        if ($this->employes->removeElement($employe)) {
+            $employe->removeProjet($this);
+        }
 
         return $this;
     }

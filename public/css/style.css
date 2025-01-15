@@ -529,3 +529,87 @@ form .select2-container--default .select2-selection--multiple .select2-selection
         padding: 13px;
     }
 }
+
+/** PUBLIC CLASSES */
+.public-main-container {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/img/bg-public.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.public-main-sub-container {
+    background-color: #4D8077;
+    height: fit-content;
+    padding: 40px;
+    border-radius: 30px;
+    width: 710px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    min-height: 724px;
+}
+
+.public-main-sub-container label {
+    color: #fff;
+}
+
+.public-main-sub-container h1 {
+    margin: 0 0 20px 0;
+}
+
+.container-home-separator {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.home-separator {
+    height: 1px;
+    width: 139px;
+    background-color: #fff;
+}
+
+.button.button-submit.button-register {
+    background-color: #B1D89D;
+    color: #4D8077;
+}
+
+.button-register-container {
+    width: 224px;
+}
+
+h1.home-title {
+    margin-bottom: 0;
+    font-size: 34px;
+}
+
+p.home-subtitle {
+    font-size: 22px;
+    margin-bottom: 50px;
+}
+
+.container-home-separator {
+    margin: 20px 0;
+}
+
+.button-register-container .button-submit {
+    width: 100%;
+    background: #1F5B50;
+    border-radius: 10px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    justify-content: center;
+    border: none;
+    color: #ffffff;
+    height: 70px;
+    margin-top: 5px;
+}
