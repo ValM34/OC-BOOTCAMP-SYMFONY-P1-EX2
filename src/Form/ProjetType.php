@@ -24,6 +24,7 @@ class ProjetType extends AbstractType
                 'multiple' => true,
                 'label' => 'Inviter des membres',
                 'required' => false,
+                'by_reference' => false,
             ])
         ;
     }
