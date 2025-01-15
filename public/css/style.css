@@ -613,3 +613,11 @@ p.home-subtitle {
     height: 70px;
     margin-top: 5px;
 }
+
+.not-register-question-container {
+    text-align: center;
+}
+
+.not-register-question-container a {
+    color: #fff;
+}
